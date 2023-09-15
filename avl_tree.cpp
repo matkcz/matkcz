@@ -11,8 +11,8 @@
     {
         if (t == nullptr)
             return;
-        makeEmpty(t->left); //vyprázdní levı podstrom rekursivnì
-        makeEmpty(t->right); //vyprázdní pravı podstrom rekursivnì
+        makeEmpty(t->left); //vyprÃ¡zdnÃ­ levÃ½ podstrom rekursivnÄ›
+        makeEmpty(t->right); //vyprÃ¡zdnÃ­ pravÃ½ podstrom rekursivnÄ›
         delete t;
     }
 
@@ -20,7 +20,7 @@
     {
         if (t != nullptr)
         {
-            return t->height;  //returnuje hodnotu vıšky daného vrcholu
+            return t->height;  //returnuje hodnotu vÃ½Å¡ky danÃ©ho vrcholu
         }
         else
         {
@@ -28,25 +28,25 @@
         }
     }
 
-    //int tree::getBalance(node* t) //mìla nahradit porovnávání vıšek u ostatních funkcí, ale nefungovalo mi to všude, tak jsem se obešel bez toho
+    //int tree::getBalance(node* t) //mÄ›la nahradit porovnÃ¡vÃ¡nÃ­ vÃ½Å¡ek u ostatnÃ­ch funkcÃ­, ale nefungovalo mi to vÅ¡ude, tak jsem se obeÅ¡el bez toho
     //{
     //    if (t == nullptr)
     //        return 0;
     //    else
-    //        return height(t->left) - height(t->right);  //returne rozdíl vıšky pravého a levého podstromu
+    //        return height(t->left) - height(t->right);  //returne rozdÃ­l vÃ½Å¡ky pravÃ©ho a levÃ©ho podstromu
     //}
 
     tree::node* tree::singleRightRotate(node*& t)
     {
-        node* u = t->left; //pomocnı vrchol u se nastaví na levı od vrcholu t
-        t->left = u->right; //levı potomek od t se nastaví na pravı potomek od u
-        u->right = t; //pravı potomek od u se nastaví na t
-        t->height = max(height(t->left), height(t->right)) + 1; //zmìna nejvyšší vıšky vrcholu t na správnou vıšku
-        u->height = max(height(u->left), t->height) + 1; //zmìna nejvyšší vıšky vrcholu u na správnou vıšku
+        node* u = t->left; //pomocnÃ½ vrchol u se nastavÃ­ na levÃ½ od vrcholu t
+        t->left = u->right; //levÃ½ potomek od t se nastavÃ­ na pravÃ½ potomek od u
+        u->right = t; //pravÃ½ potomek od u se nastavÃ­ na t
+        t->height = max(height(t->left), height(t->right)) + 1; //zmÄ›na nejvyÅ¡Å¡Ã­ vÃ½Å¡ky vrcholu t na sprÃ¡vnou vÃ½Å¡ku
+        u->height = max(height(u->left), t->height) + 1; //zmÄ›na nejvyÅ¡Å¡Ã­ vÃ½Å¡ky vrcholu u na sprÃ¡vnou vÃ½Å¡ku
         return u;
     }
 
-    tree::node* tree::singleLeftRotate(node*& t) //to samé jako u pøedchozího, jen prohozené strany
+    tree::node* tree::singleLeftRotate(node*& t) //to samÃ© jako u pÅ™edchozÃ­ho, jen prohozenÃ© strany
     {
         node* u = t->right;
         t->right = u->left;
@@ -58,11 +58,11 @@
 
     tree::node* tree::doubleRightLeftRotate(node*& t)  
     {
-        t->right = singleRightRotate(t->right); //rotuje nejprve s pravım potomkem aktuálního vrcholu doprava
-        return singleLeftRotate(t); //rotuje s aktuálním vrcholem doleva
+        t->right = singleRightRotate(t->right); //rotuje nejprve s pravÃ½m potomkem aktuÃ¡lnÃ­ho vrcholu doprava
+        return singleLeftRotate(t); //rotuje s aktuÃ¡lnÃ­m vrcholem doleva
     }
 
-    tree::node* tree::doubleLeftRightRotate(node*& t) //to samé jen opaèná strana
+    tree::node* tree::doubleLeftRightRotate(node*& t) //to samÃ© jen opaÄnÃ¡ strana
     {
         t->left = singleLeftRotate(t->left);
         return singleRightRotate(t);
@@ -70,7 +70,7 @@
 
     tree::node* tree::insert(int x, node* t, string y)
     {
-        if (t == nullptr) //kdy to dojde na prázdné místo (na konci vìtve), kde by to bylo v normálním binárním stromì, tak ho to tam umistí
+        if (t == nullptr) //kdyÅ¾ to dojde na prÃ¡zdnÃ© mÃ­sto (na konci vÄ›tve), kde by to bylo v normÃ¡lnÃ­m binÃ¡rnÃ­m stromÄ›, tak ho to tam umistÃ­
         {
             t = new node;
             t->data = x;
@@ -78,22 +78,22 @@
             t->left = t->right = nullptr;
             t->letter = y;
         }
-        else if (x < t->data) //kdy je zadané èíslo menší ne èíslo aktuálního prvku
+        else if (x < t->data) //kdyÅ¾ je zadanÃ© ÄÃ­slo menÅ¡Ã­ neÅ¾ ÄÃ­slo aktuÃ¡lnÃ­ho prvku
         {
-            t->left = insert(x, t->left, y); //ho to insertne rekursivnì víc do levého podstromu
-            if (height(t->left) - height(t->right) == 2) //kdy se vıška podstromù nìjakého vrcholu liší o 2
+            t->left = insert(x, t->left, y); //ho to insertne rekursivnÄ› vÃ­c do levÃ©ho podstromu
+            if (height(t->left) - height(t->right) == 2) //kdyÅ¾ se vÃ½Å¡ka podstromÅ¯ nÄ›jakÃ©ho vrcholu liÅ¡Ã­ o 2
             {
-                if (x < t->left->data) //tak se zjistí jestli zadaná data jsou menší ne data potomka aktuálního prvku
+                if (x < t->left->data) //tak se zjistÃ­ jestli zadanÃ¡ data jsou menÅ¡Ã­ neÅ¾ data potomka aktuÃ¡lnÃ­ho prvku
                 {
-                    t = singleRightRotate(t); //a tehdy dojde k jedné pravé rotaci
+                    t = singleRightRotate(t); //a tehdy dojde k jednÃ© pravÃ© rotaci
                 }
                 else  //a pokud ne
                 {
-                    t = doubleLeftRightRotate(t); //tak dojde k dvojité levé a pravé rotaci
+                    t = doubleLeftRightRotate(t); //tak dojde k dvojitÃ© levÃ© a pravÃ© rotaci
                 }
             }
         }
-        else if (x > t->data) //to samé jen prohozené strany
+        else if (x > t->data) //to samÃ© jen prohozenÃ© strany
         {
             t->right = insert(x, t->right, y);
             if (height(t->right) - height(t->left) == 2)
@@ -109,12 +109,12 @@
             }
         }
         //cout << t->data<< " ";
-        t->height = max(height(t->left), height(t->right)) + 1; //nastavení vıšky aktuálních prvkù
+        t->height = max(height(t->left), height(t->right)) + 1; //nastavenÃ­ vÃ½Å¡ky aktuÃ¡lnÃ­ch prvkÅ¯
         return t;
-        //postupnì se rekursivnì vrací a na koøen a dìlá kontroly vıšky a popø. odpovídající rotace
+        //postupnÄ› se rekursivnÄ› vracÃ­ aÅ¾ na koÅ™en a dÄ›lÃ¡ kontroly vÃ½Å¡ky a popÅ™. odpovÃ­dajÃ­cÃ­ rotace
     }
 
-    tree::node* tree::findMin(node* t) //nalezne nejmenší vrchol v daném podstromu
+    tree::node* tree::findMin(node* t) //nalezne nejmenÅ¡Ã­ vrchol v danÃ©m podstromu
     {
         if (t == nullptr)
             return nullptr;
@@ -124,7 +124,7 @@
             return findMin(t->left);
     }
 
-    tree::node* tree::findMax(node* t) //nevyuil jsem protoe staèí findMin nebo findMax
+    tree::node* tree::findMax(node* t) //nevyuÅ¾il jsem protoÅ¾e staÄÃ­ findMin nebo findMax
     {
         if (t == nullptr)
             return nullptr;
@@ -136,30 +136,30 @@
 
     tree::node* tree::findNode(string y)
     {
-        //pøi hledaní vrcholu podle stringu nemùeme pouívat menší/vìtši pøi vıberu odpovídající vìtve
-        std::stack<node*> s; //proto vytvoøíme stack(mohla by bıt fronta) a uloíme všechny vrcholy zde
+        //pÅ™i hledanÃ­ vrcholu podle stringu nemÅ¯Å¾eme pouÅ¾Ã­vat menÅ¡Ã­/vÄ›tÅ¡i pÅ™i vÃ½beru odpovÃ­dajÃ­cÃ­ vÄ›tve
+        std::stack<node*> s; //proto vytvoÅ™Ã­me stack(mohla by bÃ½t fronta) a uloÅ¾Ã­me vÅ¡echny vrcholy zde
         node* curr = root;
-        int i = 1; //pomocná promìnná i
+        int i = 1; //pomocnÃ¡ promÄ›nnÃ¡ i
         while ((curr != nullptr) || (!s.empty()))
         {
             while (curr != nullptr)
             {
-                s.push(curr); //umistí vrcholy z levého podstromu do stacku
+                s.push(curr); //umistÃ­ vrcholy z levÃ©ho podstromu do stacku
                 curr = curr->left;
                 i++;
             }
             curr = s.top(); //vezme z vrchu
-            s.pop(); //zruší vrch
+            s.pop(); //zruÅ¡Ã­ vrch
             i--;
-            if (curr->letter == y) //kdy to najde, tak skonèí while
+            if (curr->letter == y) //kdyÅ¾ to najde, tak skonÄÃ­ while
             {
                 break;
             }
-            if (i == 0)return nullptr; //pokud se i rovná nule, tak to znamená e jsme prošli u všemi vrcholy a nenašli 
-            curr = curr->right; //potom pùjde do pravého podstromu vrcholù
+            if (i == 0)return nullptr; //pokud se i rovnÃ¡ nule, tak to znamenÃ¡ Å¾e jsme proÅ¡li uÅ¾ vÅ¡emi vrcholy a nenaÅ¡li 
+            curr = curr->right; //potom pÅ¯jde do pravÃ©ho podstromu vrcholÅ¯
         }
         //cout << curr->data;
-        return curr; //returne vrchol (nalezenı, nebo nullptr)
+        return curr; //returne vrchol (nalezenÃ½, nebo nullptr)
     }
 
     tree::node* tree::findNode(int x)
@@ -173,36 +173,36 @@
             else curr = curr->left;
         }
         //cout << curr->letter;
-        return curr; //podle hodnoty èísla najde a vratí vrchol (jako u normálního binárního stromu)
+        return curr; //podle hodnoty ÄÃ­sla najde a vratÃ­ vrchol (jako u normÃ¡lnÃ­ho binÃ¡rnÃ­ho stromu)
     }
 
     tree::node* tree::remove(int x, node* t)
     {
         node* curr;
 
-        if (t == nullptr) //pokud to nenalezne co má vymazat
+        if (t == nullptr) //pokud to nenalezne co mÃ¡ vymazat
             return nullptr;
 
-        else if (x < t->data) //vyhledá podle èísla co vymazat
+        else if (x < t->data) //vyhledÃ¡ podle ÄÃ­sla co vymazat
             t->left = remove(x, t->left);
         else if (x > t->data)
             t->right = remove(x, t->right);
 
-        else if (t->left && t->right) //kdy to má dva potomky
+        else if (t->left && t->right) //kdyÅ¾ to mÃ¡ dva potomky
         {
-            curr = findMin(t->right); //najde nejmenší v pravém podstromì
-            t->data = curr->data; //uloí data
-            t->letter = curr->letter; //a string do daného prvku
-            t->right = remove(t->data, t->right); //odstraní prvek s daty vrcholu t
+            curr = findMin(t->right); //najde nejmenÅ¡Ã­ v pravÃ©m podstromÄ›
+            t->data = curr->data; //uloÅ¾Ã­ data
+            t->letter = curr->letter; //a string do danÃ©ho prvku
+            t->right = remove(t->data, t->right); //odstranÃ­ prvek s daty vrcholu t
         }
-        else //pokud má jednoho nebo ádného potomka
+        else //pokud mÃ¡ jednoho nebo Å¾Ã¡dnÃ©ho potomka
         {
-            curr = t; //pomocnı vrchol se nastaví na t
-            if (t->left == nullptr) //pokud levı je nullptr
-                t = t->right; //nastaví to t na pravı (v pøípadì ádného na nullptr)
-            else if (t->right == nullptr) //a nebo pokud pravı je nullptr
-                t = t->left; //nastaví to t na levı
-            delete curr; //vymae nakonec curr
+            curr = t; //pomocnÃ½ vrchol se nastavÃ­ na t
+            if (t->left == nullptr) //pokud levÃ½ je nullptr
+                t = t->right; //nastavÃ­ to t na pravÃ½ (v pÅ™Ã­padÄ› Å¾Ã¡dnÃ©ho na nullptr)
+            else if (t->right == nullptr) //a nebo pokud pravÃ½ je nullptr
+                t = t->left; //nastavÃ­ to t na levÃ½
+            delete curr; //vymaÅ¾e nakonec curr
         }
         if (t == nullptr) //pokud t je nullptr
             return t; //
@@ -210,14 +210,14 @@
         {
             t->height = max(height(t->left), height(t->right)) + 1;
 
-            if (height(t->left) - height(t->right) == -2) //pokud není vybalancovanı po odstranìní levého vrcholu
+            if (height(t->left) - height(t->right) == -2) //pokud nenÃ­ vybalancovanÃ½ po odstranÄ›nÃ­ levÃ©ho vrcholu
             {
-                if (height(t->right->right) - height(t->right->left) == 1) //a pokud rozdíl vıšky potomkù pravého potomka je 1 tak dojde k
-                    return singleLeftRotate(t); //pravé rotaci
+                if (height(t->right->right) - height(t->right->left) == 1) //a pokud rozdÃ­l vÃ½Å¡ky potomkÅ¯ pravÃ©ho potomka je 1 tak dojde k
+                    return singleLeftRotate(t); //pravÃ© rotaci
                 else
-                    return doubleRightLeftRotate(t); //levé a pravé rotace
+                    return doubleRightLeftRotate(t); //levÃ© a pravÃ© rotace
             }
-            else if (height(t->left) - height(t->right) == 2) //to samé jen opaèné strany
+            else if (height(t->left) - height(t->right) == 2) //to samÃ© jen opaÄnÃ© strany
             {
                 // left left case
                 if (height(t->left->left) - height(t->left->right) == 1)
@@ -230,15 +230,15 @@
         }
     }
 
-    tree::node* tree::remove(string y, node* t) //odstraní vrchol se stringem y
+    tree::node* tree::remove(string y, node* t) //odstranÃ­ vrchol se stringem y
     {
-        node* curr = findNode(y); //najde to vrchol se zadanım stringem
+        node* curr = findNode(y); //najde to vrchol se zadanÃ½m stringem
         if (curr == nullptr)return nullptr; //pokud to nenajde tak returne nullptr
-        remove(curr->data, root); //jinak podle dat èísla nalezeného vrcholu vymae vrchol
+        remove(curr->data, root); //jinak podle dat ÄÃ­sla nalezenÃ©ho vrcholu vymaÅ¾e vrchol
         return t;
     }
 
-    void tree::inorder(node* t) //vypíše strom v poøadí do øádku
+    void tree::inorder(node* t) //vypÃ­Å¡e strom v poÅ™adÃ­ do Å™Ã¡dku
     {
         if (t == nullptr)
             return;
@@ -247,7 +247,7 @@
         inorder(t->right);
     }
 
-    unsigned int tree::depth() //poèíta vıšku stromu
+    unsigned int tree::depth() //poÄÃ­ta vÃ½Å¡ku stromu
     {
         if (empty()) return 0;
 
@@ -302,7 +302,7 @@
 
     void tree::remove(int x)
     {
-        remove(x, root);
+        root = remove(x, root);
     }
 
     void tree::remove(string y)
@@ -336,7 +336,7 @@
                 {
                     q.push(curr->left);
                     q.push(curr->right);
-                    cout << curr->data << curr->letter/* << curr->height*/; //zakomentovanı vıpis vıšky kadého vrcholu
+                    cout << curr->data << curr->letter/* << curr->height*/; //zakomentovanÃ½ vÃ½pis vÃ½Å¡ky kaÅ¾dÃ©ho vrcholu
                 }
                 else
                 {
@@ -353,10 +353,10 @@
         std::cout << std::endl;
     }
 
-    //int tree::maxCount() //nakonec jsem nepouil; returne max poèet prvkù vzhledem k hloubce
+    //int tree::maxCount() //nakonec jsem nepouÅ¾il; returne max poÄet prvkÅ¯ vzhledem k hloubce
     //{
     //    int x = 2;
-    //    for (int i = 1; i < depth(); i++) //taky by šlo nahradit height(root) + 1
+    //    for (int i = 1; i < depth(); i++) //taky by Å¡lo nahradit height(root) + 1
     //    {
     //        x *= 2;
     //    }
