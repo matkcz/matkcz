@@ -1,20 +1,14 @@
 #pragma once
 
-#include <queue>
-#include <iomanip>
-#include <iostream>
-#include <stack>
-using namespace std;
-
 class tree
 {
     struct node
     {
-        int data; //klíè èíslo, podle kterého bude strom seøazenı
+        int data; //klÃ­Ã¨ Ã¨Ã­slo, podle kterÃ©ho bude strom seÃ¸azenÃ½
         string letter; //hodnota stringu vrcholu
-        node* left; //levı potomek
-        node* right; //pravı potomek
-        int height; //vıška jednotlivého vrcholu (od spoda)
+        node* left; //levÃ½ potomek
+        node* right; //pravÃ½ potomek
+        int height; //vÃ½Å¡ka jednotlivÃ©ho vrcholu (od spoda)
     };
    
 public:
@@ -27,7 +21,7 @@ public:
     void wide_print();
     string find(int x);
     int find(string y);
-    //int maxCount(); //nakonec jsem nepouil
+    //int maxCount(); //nakonec jsem nepouÅ¾il
 
 private:
     node* root;
