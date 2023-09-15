@@ -1,4 +1,10 @@
 #include "avl_tree.h"
+#include <iostream>
+#include <stack>
+#include <queue>
+#include <iomanip>
+
+using namespace std;
 
     //private
 
@@ -234,7 +240,7 @@
     {
         node* curr = findNode(y); //najde to vrchol se zadaným stringem
         if (curr == nullptr)return nullptr; //pokud to nenajde tak returne nullptr
-        remove(curr->data, root); //jinak podle dat čísla nalezeného vrcholu vymaže vrchol
+        root = remove(curr->data, root); //jinak podle dat čísla nalezeného vrcholu vymaže vrchol
         return t;
     }
 
